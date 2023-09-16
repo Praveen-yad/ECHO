@@ -1,0 +1,9 @@
+[0909/211738.772:ERROR:registration_protocol_win.cc(135)] TransactNamedPipe: The pipe has been ended. (0x6D)
+[0916/174917.036:ERROR:registration_protocol_win.cc(107)] CreateFile: The system cannot find the file specified. (0x2)
+[0916/174917.236:ERROR:crashpad_client_win.cc(844)] not connected
+[0916/174917.454:ERROR:registration_protocol_win.cc(107)] CreateFile: The system cannot find the file specified. (0x2)
+[0916/174917.928:ERROR:crashpad_client_win.cc(844)] not connected
+[0916/174918.164:ERROR:registration_protocol_win.cc(107)] CreateFile: The system cannot find the file specified. (0x2)
+[0916/174918.219:ERROR:crashpad_client_win.cc(844)] not connected
+[0916/174918.356:ERROR:registration_protocol_win.cc(107)] CreateFile: The system cannot find the file specified. (0x2)
+[0916/174918.378:ERROR:registration_protocol_win.cc(107)] CreateFile: The system cannot find the file specified. (0x2)

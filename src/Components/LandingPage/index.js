@@ -1,0 +1,5 @@
+export {default as Illustration} from './Illustration'
+export {default as Login} from './Login'
+export {default as Signup} from './Signup'
+export {default as Title} from './Title'
+export {default as VerifyOtp} from './VerifyOtp'
