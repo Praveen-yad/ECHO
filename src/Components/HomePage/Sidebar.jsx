@@ -6,21 +6,15 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveChat } from "../../store/activeChat";
-import io from "socket.io-client";
 import { setSecondRecall } from "../../store/secondRecall";
 
-const ENDPOINT = "https://echo-backend.vercel.app";
-let socket;
-
 const Sidebar = () => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const chatId = useSelector(state => state.activeChat)
-  const recall = useSelector(state => state.recall)
   const secondRecall = useSelector(state => state.secondRecall)
   const dispatch = useDispatch()
-  const [newMessage, setNewMessage] = useState(false)
-
 
   const config = {
     headers: {
@@ -29,18 +23,12 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    socket = io(ENDPOINT);
-    // eslint-disable-next-line
-  }, []);
-
-
-  useEffect(() => {
     const FetchChats = async () => {
       await axios
-      .get("https://echo-backend.vercel.app/api/chat/", config)
+      .get(`${BASE_URL}/api/chat/`, config)
       .then((res) => {
         setData(res.data);
-        console.log(res.data);
+        // console.log(res.data);
       })
       .catch((err) => {
         // console.log(err)
@@ -52,27 +40,19 @@ const Sidebar = () => {
   }, [secondRecall]);
 
   const Notify = async(id) => {
-    dispatch(setActiveChat(id))
+    dispatch(setActiveChat(id)) 
     navigate(`/home/${id}`)
-    await axios.post(`https://echo-backend.vercel.app/api/chat/removenew`,{
+    await axios.post(`${BASE_URL}/api/chat/removenew`,{
       chatId:id
       },config)
       .then(res => {
-          console.log(res)
+          // console.log(res)
           dispatch(setSecondRecall())
       })
       .catch(err => {
-          console.log(err)
+          // console.log(err)
       })  
   }
-
-  useEffect(() => {
-    socket.on("message received", (newMessageReceived) => {
-        if (chatId !== newMessageReceived.chat._id) {
-            dispatch(setSecondRecall())
-        }
-    });
-});
 
 
   return (
@@ -86,19 +66,19 @@ const Sidebar = () => {
         </div>
 
         <form>
-          <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-[#EAF2FE] rounded-full text-[#709CE6] space-x-2">
+          <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-theme bg-opacity-10 text-opacity-90 rounded-full text-theme space-x-2">
             <button>
               <BiSearch size={20} />
             </button>
             <input
-              className="bg-transparent w-full outline-none placeholder:text-[#709CE6]"
+              className="bg-transparent w-full outline-none placeholder:text-theme placeholder:text-opacity-70"
               placeholder="Search"
             />
           </div>
         </form>
       </div>
 
-      <div className="w-[17rem] text-[#5B96F7] h-[2.3rem] mt-3 pb-1 flex items-center space-x-2 border-b-2">
+      <div className="w-[17rem] text-theme h-[2.3rem] mt-3 pb-1 flex items-center space-x-2 border-b-2">
         <PiArchiveBox />
         <div >Archived</div>
       </div>
@@ -126,7 +106,6 @@ const Sidebar = () => {
                   activeId={chatId}
                   timeStamp={items.latestMessage?.createdAt}
                   notify={items.newMessage}
-                  set
                 />
               </div>
             ) : (

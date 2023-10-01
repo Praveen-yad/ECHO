@@ -6,6 +6,7 @@ import DisplayError from './Common/DisplayError'
 import { AnimatePresence } from 'framer-motion'
 
 const VerifyOtp = ({setShowSignup, setShowLogin, setShowVerify, mail}) => {
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const [otp, setotp] = useState()
     const [isLoading ,setIsLoading] = useState(false)   
     const [showError, setShowError] = useState(false)
@@ -14,7 +15,7 @@ const VerifyOtp = ({setShowSignup, setShowLogin, setShowVerify, mail}) => {
     const VerifyHandler = async(e) => {
         e.preventDefault();
         setIsLoading(true)
-        await axios.post("https://echo-backend.vercel.app/api/user/verify",{
+        await axios.post(`${BASE_URL}/api/user/verify`,{
           email: mail,
           otp: otp
         }).then(res => {

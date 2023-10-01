@@ -11,10 +11,10 @@ const MsgSent = ({message, timeStamp}) => {
 
   return (
       <div className='w-full flex justify-end mt-4'>
-        <div className='relative w-fit flex flex-col'>
-            <div className=' w-fit max-w-[23rem] bg-[#5B96F7] rounded-lg px-5 py-2 text-white'>{message}</div>
-            <div className='absolute -top-[4px] text-[#5B96F7] -right-[6px] rotate-[59deg]'><BsTriangleFill/></div>
-            <div className='text-xs ml-auto mt-2 uppercase'>{time}</div>
+        <div className='relative w-fit flex bg-theme rounded-l-lg rounded-br-lg pl-1 pr-3 py-2'>
+            <div className=' w-fit max-w-[23rem] pl-2 pr-3 text-[17px] text-white'>{message}</div>
+            <div className='absolute -top-1 text-theme -right-[8px] rotate-[59deg]'><BsTriangleFill/></div>
+            <div className='text-xs mt-2 uppercase text-white'>{time}</div>
         </div>
     </div>
   )

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { setActiveChat } from '../../../store/activeChat'
 
 const NewChat = ({setShow}) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [data, setData] = useState([])
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -22,7 +23,7 @@ const NewChat = ({setShow}) => {
     }
   };
   const apiCall = async() => {
-    await axios.post(`https://echo-backend.vercel.app/api/user/find?search=${search}`, {
+    await axios.post(`${BASE_URL}/api/user/find?search=${search}`, {
     }, config)
     .then(res => {
       setData(res.data)
@@ -42,7 +43,7 @@ const NewChat = ({setShow}) => {
 
   const accessChat = async(id) => {
     setIsLoading2(true)
-    await axios.post("https://echo-backend.vercel.app/api/chat", {
+    await axios.post(`${BASE_URL}/api/chat`, {
       userId: id
       }, config)
       .then(res => {
@@ -68,22 +69,22 @@ const NewChat = ({setShow}) => {
         </div>
 
         <form>
-          <div className='h-[2.3em] mt-6 flex items-center px-3 w-[17rem] bg-[#EAF2FE] rounded-full text-[#709CE6] space-x-2'>
+          <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-theme bg-opacity-10 text-opacity-90 rounded-full text-theme space-x-2">
             <button>{isLoading ?<Jelly size={20} speed={0.9} color="#709CE6" /> : <BiSearch size={20} />}</button>
-            <input className='bg-transparent w-full outline-none placeholder:text-[#709CE6]' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
+            <input className='bg-transparent w-full outline-none placeholder:text-theme placeholder:text-opacity-70 text-opacity-90' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
           </div>
         </form>
       </div>
 
       <div className='w-full px-[1.5rem] flex-1 space-y-4 mt-5 overflow-y-auto'>
         {data.map((item) => (
-          <div key={item._id} className='w-full p-3 flex bg-[#F0F4FA] rounded-xl cursor-pointer hover:bg-neutral-700 text-neutral-800 hover:text-white transition-colors' onClick={() => {
+          <div key={item._id} className='w-full p-3 flex bg-[#F0F4FA] rounded-xl cursor-pointer hover:bg-theme text-neutral-800 hover:text-white transition-colors' onClick={() => {
             setId(item._id)
             accessChat(item._id)
           }}>
             <div className='relative'>
               <img alt="ERROR" src={item.pic} className='w-[2.5rem] h-[2.5rem] object-cover rounded-full' />
-              {(isLoading2 && id === item._id) && <div className='absolute top-0 -translate-x-[7px] -translate-y-[7px] '><Ring size={54} lineWeight={3} speed={2} color="#5B96F7" /></div>}
+              {(isLoading2 && id === item._id) && <div className='absolute top-0 -translate-x-[7px] -translate-y-[7px] '><Ring size={54} lineWeight={3} speed={2} color="#fff" /></div>}
             </div>
             <div className='ml-3 -space-y-0.5'>
               <div>{item.name}</div>

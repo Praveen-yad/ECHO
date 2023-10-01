@@ -6,10 +6,11 @@ import {IoClose} from 'react-icons/io5'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setActiveChat } from '../../../store/activeChat'
-import { setRecall } from '../../../store/recall'
 
 
 const CreateGroup = ({ setShow }) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
+
   const [data, setData] = useState([])
   const [search, setSearch] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -27,7 +28,7 @@ const CreateGroup = ({ setShow }) => {
     }
   };
   const apiCall = async () => {
-    await axios.post(`https://echo-backend.vercel.app/api/user/find?search=${search}`, {
+    await axios.post(`${BASE_URL}/api/user/find?search=${search}`, {
     }, config)
       .then(res => {
         setData(res.data)
@@ -53,14 +54,14 @@ const CreateGroup = ({ setShow }) => {
     setIsLoading2(true)
     const data = JSON.stringify(userIdArray)
 
-    await axios.post("https://echo-backend.vercel.app/api/chat/group", {
+    await axios.post(`${BASE_URL}/api/chat/group`, {
       name: groupName,
       users: data
     }, config)
       .then(async(res) => {
         // console.log(res)
         if(res.data.sucess) {
-          await axios.post(`https://echo-backend.vercel.app/api/message`,
+          await axios.post(`${BASE_URL}/api/message`,
           {
               chatId: res.data.response._id,
               content: "I Created This Group",
@@ -153,15 +154,15 @@ const CreateGroup = ({ setShow }) => {
       </div>
 
       <form>
-        <div className='h-[2.3em] mt-6 flex items-center px-3 w-[17rem] bg-[#EAF2FE] rounded-full text-[#709CE6] space-x-2'>
+        <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-theme bg-opacity-10 text-opacity-90 rounded-full text-theme space-x-2">
           <button>{isLoading ? <Jelly size={20} speed={0.9} color="#709CE6" /> : <BiSearch size={20} />}</button>
-          <input className='bg-transparent w-full outline-none placeholder:text-[#709CE6]' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
+          <input className='bg-transparent w-full outline-none placeholder:text-theme placeholder:text-opacity-70' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
         </div>
       </form>
 
       <div className='w-full px-[1.5rem] flex-1 space-y-4 mt-5 '>
         {data.map((item) => (
-          <div key={item._id} className={`w-full p-3 flex   rounded-xl cursor-pointer hover:bg-neutral-700 hover:text-white transition-colors ${FindInGroup(item._id) ? 'bg-neutral-700 text-white' : 'bg-[#F0F4FA] text-neutral-900'} `} onClick={() => HandleUser(item._id, item.name)}>
+          <div key={item._id} className={`w-full p-3 flex   rounded-xl cursor-pointer hover:bg-theme hover:text-white transition-colors ${FindInGroup(item._id) ? 'bg-theme text-white' : 'bg-[#F0F4FA] text-neutral-900'} `} onClick={() => HandleUser(item._id, item.name)}>
             <div className='relative'>
               <img alt="ERROR" src={item.pic} className='w-[2.5rem] h-[2.5rem] object-cover rounded-full' />
             </div>

@@ -17,7 +17,7 @@ const UserContainer = ({ name, pic, id, lastMsg, sendersName, sendersId, timeSta
 
     
     return (
-        <div className={`h-[4rem] px-3 rounded-xl w-full flex items-center hover:bg-neutral-700 ${activeId === id ? "bg-neutral-700" : "bg-[#F0F4FA]"} transition-colors cursor-pointer group`}>
+        <div className={`h-[4rem] px-3 rounded-xl w-full flex items-center hover:bg-theme ${activeId === id ? "bg-theme" : "bg-[#F0F4FA]"} transition-colors cursor-pointer group`}>
             <div className=" w-[3.5rem] ">
                 <img 
                     alt="ERROR"
@@ -40,8 +40,7 @@ const UserContainer = ({ name, pic, id, lastMsg, sendersName, sendersId, timeSta
                         <div className="capitalize">{(sendersId === localStorage.getItem('id')) ? 'You:\xa0' : sendersName}</div>
                         <div className="w-full">{lastMsg || "No Conversation Yet"}</div>
                     </div>
-                    {notify && 
-                        <div className="bg-[#5B96F7] w-3 h-3 rounded-full"></div> 
+                    {notify && (sendersId !== localStorage.getItem('id')) ? <div className="bg-theme w-3 h-3 rounded-full"></div> : <></>
                     }
                 </div>
             </div>

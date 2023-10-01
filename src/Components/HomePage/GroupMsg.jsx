@@ -9,15 +9,15 @@ const GroupMsg = ({message, timeStamp , sender}) => {
   }).format(newTimeStamp)
   return (
     <div className='w-full mt-4'>
-        <div className='w-fit flex-col'>
-            {sender ? 
-            <div>{sender.name}</div>
+        <div className='relative w-fit flex-col bg-white rounded-bl-lg rounded-r-lg pl-3 pr-3 py-2'>
+          {sender ? 
+            <div className='capitalize text-theme font font-medium'>{sender.name}</div>
             :
             <div></div>
           }
-          <div className='flex w-fit relative'>
-            <div className='w-fit max-w-[23rem] bg-neutral-700 text-white rounded-lg px-4 py-2'>{message}</div>
-            <div className='absolute -left-[8px] -top-1 -rotate-[59deg] text-neutral-700'><BsTriangleFill/></div>
+          <div className='flex w-fit'>
+            <div className='w-fit max-w-[23rem] text-black text-[17px]'>{message}</div>
+            <div className='absolute -left-[8px] -top-1 -rotate-[58deg] text-white'><BsTriangleFill/></div>
             <div className='text-xs mt-auto ml-2 uppercase'>{time}</div>
           </div>
         </div>

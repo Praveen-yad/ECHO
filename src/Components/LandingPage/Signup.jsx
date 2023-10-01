@@ -6,6 +6,7 @@ import DisplayError from './Common/DisplayError'
 import { AnimatePresence } from 'framer-motion'
 
 const Signup = ({setShowSignup,setShowLogin, setShowVerify, setMail}) => {
+  const BASE_URL = process.env.REACT_APP_BASE_URL;
   const [username , setUsername] = useState('')
   const [password , setPassword] = useState('')
   const [pic , setPic] = useState('')
@@ -39,7 +40,7 @@ const Signup = ({setShowSignup,setShowLogin, setShowVerify, setMail}) => {
       },5000)
       return;
     }
-    await axios.post("https://echo-backend.vercel.app/api/user/register",{
+    await axios.post(`${BASE_URL}/api/user/register`,{
       name: username,
       email: email,
       password: password,
