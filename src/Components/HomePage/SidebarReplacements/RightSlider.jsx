@@ -6,14 +6,14 @@ import {RiDeleteBinLine} from 'react-icons/ri'
 import { TbFlag3 } from 'react-icons/tb'
 const RightSlider = ({media, reciver, name, data}) => {
     return (
-        <div className={`h-full bg-[#F8FAFF] border-l transition-all ${!media && "-mr-[20rem]"}`}>
+        <div className={`h-full bg-[#F8FAFF] dark:text-neutral-300 dark:bg-[#111111] border-l transition-all ${!media && "-mr-[20rem]"}`}>
             <div className='h-[9vh] border-b flex items-center px-3'>
                 <AiOutlineCloseCircle size={22}/>
                 <div className='ml-2'>Contact Info</div>
             </div>
             <div className=' pt-5 w-[20rem] space-y-7 flex flex-col items-center'>
                 <div className='w-[17rem] flex justify-center items-center'>
-                    <img src={reciver.pic} className='h-[3.5rem] w-[3.5rem] rounded-full outline outline-1' />
+                    <img alt="ERROR" src={reciver.pic} className='h-[3.5rem] w-[3.5rem] rounded-full outline outline-1' />
                     <div className='ml-4 text-sm'>
                         <div className='capitalize text-[17px] font-medium'>{name}</div>
                     </div>

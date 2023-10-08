@@ -62,7 +62,7 @@ const Signup = ({setShowSignup,setShowLogin, setShowVerify, setMail}) => {
   }
 
   return (
-    <div className='w-[25rem] bg-white rounded-2xl p-8 flex flex-col text-neutral-700 outline outline-1 outline-neutral-500 group z-10'>
+    <div className='w-[25rem] bg-white rounded-2xl p-8 flex flex-col text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200 transition-colors outline outline-1 outline-neutral-500 group z-10'>
       <div className='text-3xl font-bold flex justify-between'>
           <div>ECHO,</div>
           <div><IoIosCloseCircleOutline className='opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer' onClick={() => setShowSignup(false)}/></div>
@@ -70,14 +70,14 @@ const Signup = ({setShowSignup,setShowLogin, setShowVerify, setMail}) => {
       <div className='mt-2 '>Welcomes You!</div>
       <form onSubmit={SignupHandler}>
         <div className='mt-8 space-y-4 text-lg'> 
-            <div className='text-sm text-neutral-700 -mb-2'>Profile Pic</div>
+            <div className='text-sm text-neutral-700 dark:text-neutral-300 transition-colors -mb-2'>Profile Pic</div>
             <div className='h-[3rem]  w-full flex items-center justify-between'>
               {image.map((item, index) => (
-                <div key={index} className={`w-[3rem] overflow-hidden h-[3rem] rounded-full ${pic === item.url ? 'outline outline-2 outline-[#6a6a6a]' : ''} `} onClick={() => setPic(item.url)}>
+                <div key={index} className={`w-[3rem] overflow-hidden h-[3rem] rounded-full ${pic === item.url ? 'outline outline-2 dark:outline-neutral-100 transition-colors outline-[#6a6a6a]' : ''} `} onClick={() => setPic(item.url)}>
                   <img alt='ERROR' src={item.url} className='w-[3rem] object-cover h-[3rem]' />
                 </div>  
               ))}
-              <div className='w-[3rem] h-[3rem] bg-slate-300 rounded-full grid place-items-center text-3xl cursor-not-allowed'>+</div>  
+              <div className='w-[3rem] h-[3rem] bg-slate-300 rounded-full grid place-items-center text-3xl cursor-not-allowed dark:text-neutral-800 transition-colors'>+</div>  
             </div>        
             <input autoComplete='signup-username' required onChange={(e) => setUsername(e.target.value)} type="text" className='w-full bg-transparent outline-none border-b border-neutral-400' placeholder='Username'/>
             <input autoComplete='signup-email' required onChange={(e) => {
@@ -86,11 +86,11 @@ const Signup = ({setShowSignup,setShowLogin, setShowVerify, setMail}) => {
             }} type='Email' className='w-full bg-transparent outline-none border-b border-neutral-400' placeholder='Email'/>
             <input autoComplete='signup-pass' required onChange={(e) => setPassword(e.target.value)} type='password' className='w-full bg-transparent outline-none border-b border-neutral-400' placeholder='Password'/>
         </div>
-        <button className='w-full text-center text-white mt-10 bg-neutral-500 h-[2.5rem] flex items-center justify-center rounded-lg'>{isLoading ? <Ring size={24} color='white'/> : 'Signup'} </button>
+        <button className='w-full text-center text-white mt-10 bg-neutral-500 h-[2.5rem] dark:bg-neutral-700 transition-colors flex items-center justify-center rounded-lg'>{isLoading ? <Ring size={24} color='white'/> : 'Signup'} </button>
       </form>
       <div className='text-center mt-4 text-xs flex justify-center font-medium'>
       <div>Already have an Account? </div>
-        <div className='text-black cursor-pointer pl-1 hover:underline' onClick={() => {
+        <div className='text-black dark:text-theme transition-colors cursor-pointer pl-1 hover:underline' onClick={() => {
           setShowLogin(true)
           setShowSignup(false)
         }}>Login</div>

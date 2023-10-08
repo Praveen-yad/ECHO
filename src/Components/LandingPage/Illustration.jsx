@@ -21,9 +21,9 @@ const Illustration = () => {
                     </div>
 
                     <div className='ml-4 mt-2 space-y-3'>
-                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit'>Hey</div>
-                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit'>Nice to meet you!</div>
-                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-[13rem]'>Hope you're doing fine</div>
+                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit dark:bg-neutral-800 dark:text-neutral-300 transition-colors'>Hey</div>
+                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit dark:bg-neutral-800 dark:text-neutral-300 transition-colors'>Nice to meet you!</div>
+                        <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-[13rem] dark:bg-neutral-800 dark:text-neutral-300 transition-colors'>Hope you're doing fine</div>
                     </div>
                 </div>
             </div>
@@ -39,15 +39,15 @@ const Illustration = () => {
 
 {/* Third Block */}
         <div className='h-full w-[18rem] z-10'>
-            <div className='flex flex-col items-end pr-8 mt-10 text-2xl text-neutral-600 space-y-2'>
+            <div className='flex flex-col items-end pr-8 mt-10 text-2xl text-neutral-600 dark:text-neutral-300 transition-colors space-y-2'>
                 <BsFillChatLeftTextFill/>
                 <BiSolidPhoneCall/>
                 <BsCameraVideoFill/>
-                <div className='w-1 h-1 bg-black rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite] '></div>
-                <div className='w-1 h-1 bg-black rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite_300ms] delay-500'></div>
-                <div className='w-1 h-1 bg-black rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite_600ms]'></div>
+                <div className='w-1 h-1 bg-black dark:bg-neutral-300 transition-colors rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite] '></div>
+                <div className='w-1 h-1 bg-black dark:bg-neutral-300 transition-colors rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite_300ms] delay-500'></div>
+                <div className='w-1 h-1 bg-black dark:bg-neutral-300 transition-colors rounded-full mr-3 animate-[ping_1.5s_ease-in-out_infinite_600ms]'></div>
             </div>
-            <div className='w-[14rem] bg-[#f3f3f3] -ml-8 mr-24 rounded-[20px] flex flex-col p-6 space-y-3 mt-[6.5rem]'>
+            <div className='w-[14rem] dark:bg-neutral-800 transition-colors bg-[#f3f3f3] shadow-lg -ml-8 mr-24 rounded-[20px] flex flex-col p-6 space-y-3 mt-[6.5rem]'>
                 <div className='flex w-full h-fit items-center justify-between text-slate-400 font-[450]'>
                     <span className='text-xl'>Active</span>
                     <div className='flex items-center mt-1.5'>
@@ -70,7 +70,7 @@ const Illustration = () => {
                     </div>
                 </div>
 
-                <div className='w-[80%] h-[22px] flex items-center bg-neutral-200 rounded-full text-neutral-300 px-1.5'>
+                <div className='w-[80%] h-[22px] flex items-center bg-neutral-200 dark:bg-neutral-700 transition-colors rounded-full text-neutral-300 px-1.5'>
                     <BiSearch/>
                     <div className='w-[60%] h-1 bg-neutral-300 ml-1 rounded-full'></div>
                 </div>
@@ -81,7 +81,7 @@ const Illustration = () => {
                     <TbBellFilled className='text-[#f68230]'/>
                 </div>
 
-                <div className='w-full h-12 bg-neutral-200 rounded-xl flex px-2.5 items-center text-neutral-400'>
+                <div className='w-full h-12 bg-neutral-200 rounded-xl dark:bg-neutral-700 transition-colors flex px-2.5 items-center text-neutral-400'>
                     <div className='w-[2.2rem] h-[2.2rem] bg-purple-500 rounded-full flex items-center justify-center text-neutral-300 font-[500]'>L</div>
                     <div className='text-sm font-medium ml-2 flex flex-col items-center -translate-y-0.5' >
                         <span>Lakshmi Roy</span>
@@ -93,8 +93,8 @@ const Illustration = () => {
 
             <div className='w-full -translate-x-[12rem] mt-12 flex relative'>
                 <div className='flex flex-col items-end w-fit space-y-3 justify-end z-10'>
-                    <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit'>Hi Anika</div>
-                    <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit'>How can I help you today?</div>
+                    <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit dark:bg-neutral-800 dark:text-neutral-300 transition-colors'>Hi Anika</div>
+                    <div className='bg-[#f3f3f3] shadow-lg px-4 py-2 rounded-xl w-fit dark:bg-neutral-800 dark:text-neutral-300 transition-colors'>How can I help you today?</div>
                 </div>
                 <div className='w-[8rem] h-[5.5rem] absolute -top-4 -right-12 bg-[#a068a0] rounded-full -rotate-45 overflow-hidden'>
                     <img alt="ERROR" src='https://res.cloudinary.com/de2rges3m/image/upload/v1693407473/Chat%20App/Login%20page/istockphoto-1049768416-612x612-PhotoRoom.png-PhotoRoom_w4etz0.png' className='rotate-45 w-[18rem] scale-110 -translate-x-7 '/>

@@ -1,10 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import RecallSlice from './recall'
+import darkMode from './darkMode'
 import ActiveChatSlice from './activeChat'
 import secondRecallSlice from './secondRecall'
 
 export default combineReducers({
-    recall: RecallSlice,
+    darkMode: darkMode,
     activeChat: ActiveChatSlice,
     secondRecall: secondRecallSlice
 })

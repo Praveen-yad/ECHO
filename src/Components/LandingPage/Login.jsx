@@ -46,7 +46,7 @@ const Login = ({setShowLogin,setShowSignup, setShowVerify, setMail}) => {
   }
 
   return (
-    <div className='w-[25rem] bg-white rounded-2xl p-8 flex flex-col text-neutral-700 outline outline-1 outline-neutral-500 group z-10'>
+    <div className='w-[25rem] bg-white dark:bg-neutral-800 rounded-2xl p-8 flex flex-col text-neutral-700 transition-colors dark:text-neutral-200 outline outline-1 outline-neutral-500 group z-10'>
       <div className='text-3xl font-bold flex justify-between'>
           <div>ECHO,</div>
           <div><IoIosCloseCircleOutline className='opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer' onClick={() => setShowLogin(false)}/></div>
@@ -63,11 +63,11 @@ const Login = ({setShowLogin,setShowSignup, setShowVerify, setMail}) => {
         <div className='text-center flex justify-end mt-4 py-2 rounded-lg'>
             <div className='underline cursor-pointer'>Forgot Password?</div>
         </div>
-        <button className='w-full text-center text-white mt-10 bg-neutral-500 h-[2.5rem] flex items-center justify-center rounded-lg'>{isLoading ? <Ring size={24} color='white'/> : 'Login'} </button>      
+        <button className='w-full text-center text-white mt-10 bg-neutral-500 h-[2.5rem] flex items-center justify-center rounded-lg dark:bg-neutral-700 transition-colors'>{isLoading ? <Ring size={24} color='white'/> : 'Login'} </button>      
       </form>
       <div className='text-center mt-4 text-xs flex justify-center font-medium'>
       <div>Dont have an Account? </div>
-        <div className='text-black cursor-pointer pl-1 hover:underline' 
+        <div className='text-black transition-colors dark:text-theme cursor-pointer pl-1 hover:underline' 
         onClick={() => {
           setShowLogin(false)
           setShowSignup(true)

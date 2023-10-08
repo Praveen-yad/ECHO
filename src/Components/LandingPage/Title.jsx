@@ -3,10 +3,10 @@ import { RiSendPlaneFill } from "react-icons/ri";
 
 const Title = () => {
     return (
-        <div className='pl-10 pt-8 text-[65px] font-[800] text-neutral-600 flex flex-col'>
-            <div><span className='text-[#5B96F7]'>ECHO</span>,Thoughts</div>
+        <div className='pl-10 pt-8 text-[65px] font-[800] text-neutral-600 transition-colors dark:text-neutral-300 flex flex-col'>
+            <div><span className='text-theme'>ECHO</span>,Thoughts</div>
             <div className='flex items-center justify-around'>
-                <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center justify-center outline outline-neutral-600'>
+                <div className='w-[3rem] h-[3rem] bg-white rounded-full flex items-center justify-center outline outline-neutral-600 dark:outline-neutral-500 transition-colors dark:text-black'>
                     <TbMessage2Bolt className='text-2xl' />
                 </div>
 
@@ -16,7 +16,7 @@ const Title = () => {
                 </div>
                 <div className=''>Flow Without</div>
             </div>
-            <div className='flex items-center'>Friction<RiSendPlaneFill className='ml-4 text-[#5B96F7] mt-3' /></div>
+            <div className='flex items-center'>Friction<RiSendPlaneFill className='ml-4 text-theme mt-3' /></div>
         </div>
     )
 }

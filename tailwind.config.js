@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-let theme = '#08756a'
+let theme = '#bc6c25'
 module.exports = {
   content: ["./src/**/*.{html,js,jsx}"],
   theme: {
@@ -13,4 +13,5 @@ module.exports = {
     },
   },
   plugins: [],
+  darkMode: 'class',
 }
