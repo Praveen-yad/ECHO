@@ -61,7 +61,7 @@ const CreateGroup = ({ setShow }) => {
       .then(async(res) => {
         // console.log(res)
         if(res.data.sucess) {
-          await axios.post(`${BASE_URL}/api/message`,
+          axios.post(`${BASE_URL}/api/message`,
           {
               chatId: res.data.response._id,
               content: "I Created This Group",
@@ -143,7 +143,7 @@ const CreateGroup = ({ setShow }) => {
             <div className='flex items-center cursor-pointer justify-between w-full h-fit hover:outline outline-1 outline-neutral-200 px-2 rounded-lg transition-colors text-neutral-600 dark:hover:outline-neutral-500 dark:text-neutral-300' onClick={CreateGroup}>
               <div className='py-1'>Create New Group</div>
               {isLoading2 ? 
-              <div className='h-6 w-6 flex items-center'><Jelly size={20} speed={0.9} color="#bc6c25" /></div>
+              <div className='h-6 w-6 flex items-center'><Jelly size={20} speed={0.9} color="#075f45" /></div>
                 :
                 <div className='text-2xl flex items-center h-6 w-6'>+</div>
               }
@@ -155,7 +155,7 @@ const CreateGroup = ({ setShow }) => {
 
       <form>
         <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-black dark:bg-[#fff] dark:bg-opacity-10 bg-opacity-10 text-opacity-90 rounded-full text-neutral-700 dark:text-neutral-300 space-x-2 transition-colors">
-          <button>{isLoading ? <Jelly size={20} speed={0.9} color="#bc6c25" /> : <BiSearch size={20} />}</button>
+          <button>{isLoading ? <Jelly size={20} speed={0.9} color="#075f45" /> : <BiSearch size={20} />}</button>
           <input className='bg-transparent w-full outline-none placeholder:text-neutral-700 dark:placeholder:text-neutral-400  placeholder:text-opacity-70 transition-colors' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
         </div>
       </form>

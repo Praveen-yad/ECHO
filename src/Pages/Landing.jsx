@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TbArrowRight } from "react-icons/tb";
 import { Illustration, Login, Signup, Title, VerifyOtp } from "../Components/LandingPage";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { setDark } from "../store/darkMode";
 
 const Landing = () => {
     const [showLogin, setShowLogin] = useState(false);
@@ -10,16 +10,24 @@ const Landing = () => {
     const [showVerify, setShowVerify] = useState(false);
     const [mail, setMail] = useState('')
     const Dark = useSelector(state => state.darkMode)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        localStorage.setItem("dark", false)
+    },[])
 
     return (
         <div className={`${Dark && 'dark'}`}>
             <div className="relative w-[100vw] font-Inconsolata h-[100vh] flex transition-colors bg-[#edf3fa] dark:bg-[#111111]">
                 <div className=" w-[42%] h-full p-8">
-                    <div className="font-semibold text-4xl relative flex items-center text-neutral-800 dark:text-neutral-300 transition-colors">
-                        <span className="z-10 pl-1">
+                    <div className="font-semibold text-4xl relative flex items-center text-neutral-800 dark:text-neutral-300 transition-colors cursor-pointer" onClick={() => dispatch(setDark())}>
+                        <span className=" pl-1">
                             <span className="font-bold">E</span>CHO
                         </span>
-                        <span className="absolute bg-theme h-[33px] w-[40px] rounded-2xl left-0 -translate-x-[7px]"></span>
+                        
+                        <span className={`absolute overflow-hidden bg-theme h-[33px] w-[40px] rounded-2xl left-0 -translate-x-[7px]`}>
+                            <span className="font-bold absolute -translate-y-[4px] translate-x-[11px] text-neutral-300 dark:text-neutral-900 transition-colors">ECHO</span>
+                        </span>
                     </div>
                     <Title Dark={Dark}/>
                     <div className="ml-10 mt-8 w-[24rem] dark:text-neutral-400 transition-colors">

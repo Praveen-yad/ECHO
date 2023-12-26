@@ -6,6 +6,7 @@ import { Ring } from '@uiball/loaders'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { setActiveChat } from '../../../store/activeChat'
+import { setSecondRecall } from '../../../store/secondRecall'
 
 const NewChat = ({setShow}) => {
   const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -49,16 +50,22 @@ const NewChat = ({setShow}) => {
       .then(res => {
         console.log(res)
         if(res.data.sucess){
+          axios.post(`${BASE_URL}/api/message`,
+            {
+                chatId: res.data.response._id,
+                content: 'Hey!',
+            },config,).then(ress => dispatch(setSecondRecall()))
           setShow("Chats")
           navigate(`/home/${res.data.response._id}`)
           dispatch(setActiveChat(res.data.response._id))
+          
         }
         setIsLoading2(false)
       })
       .catch(err => {
         console.log(err)
         setIsLoading2(false)
-      })
+    })
   }
 
   return (
@@ -70,7 +77,7 @@ const NewChat = ({setShow}) => {
 
         <form>
           <div className="h-[2.3em] mt-6 mb-3 flex items-center px-3 w-[17rem] bg-black dark:bg-[#fff] dark:bg-opacity-10 bg-opacity-10 text-opacity-90 rounded-full text-neutral-700 dark:text-neutral-300 space-x-2 transition-colors">
-            <button>{isLoading ?<Jelly size={20} speed={0.9} color="#bc6c25" /> : <BiSearch size={20} />}</button>
+            <button>{isLoading ?<Jelly size={20} speed={0.9} color='#075f45' /> : <BiSearch size={20} />}</button>
             <input className='bg-transparent w-full outline-none placeholder:text-neutral-700 dark:placeholder:text-neutral-400  placeholder:text-opacity-70 transition-colors' placeholder='Search' onChange={(e) => setSearch(e.target.value)} />
           </div>
         </form>
@@ -78,7 +85,7 @@ const NewChat = ({setShow}) => {
 
       <div className='w-full px-[1.5rem] flex-1 space-y-4 mt-5 overflow-y-auto'>
         {data.map((item) => (
-          <div key={item._id} className='w-full p-3 flex bg-[#F0F4FA] rounded-xl cursor-pointer hover:bg-theme text-neutral-800 dark:text-neutral-300 dark:shadow-md dark:bg-neutral-900 hover:text-white transition-colors' onClick={() => {
+          <div key={item._id} className='w-full p-3 flex bg-[#F0F4FA] rounded-xl cursor-pointer hover:bg-theme dark:hover:bg-theme text-neutral-800 dark:text-neutral-300 dark:shadow-md dark:bg-neutral-900 hover:text-white transition-colors' onClick={() => {
             setId(item._id)
             accessChat(item._id)
           }}>

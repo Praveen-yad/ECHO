@@ -41,7 +41,7 @@ const UserContainer = ({ name, pic, id, lastMsg, sendersName, sendersId, timeSta
                     <div className="flex items-center justify-between">
                         <div className={`text-xs w-[10rem] flex truncate ${activeId === id ? "text-neutral-200" : "text-neutral-600 dark:text-neutral-400"} group-hover:text-neutral-200 transition-colors`}>
                             <div className="capitalize">{(sendersId === localStorage.getItem('id')) ? 'You:\xa0' : sendersName}</div>
-                            <div className="w-full">{lastMsg || "No Conversation Yet"}</div>
+                            <div className="w-full">{lastMsg}</div>
                         </div>
                         {notify && (sendersId !== localStorage.getItem('id')) ? <div className="bg-theme w-3 h-3 rounded-full"></div> : <></>
                         }

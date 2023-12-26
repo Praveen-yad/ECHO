@@ -72,7 +72,7 @@ const Login = ({setShowLogin,setShowSignup, setShowVerify, setMail}) => {
           setShowLogin(false)
           setShowSignup(true)
         }}>
-          Signup for free</div>
+          Signup</div>
       </div>
       <AnimatePresence>
           {showError && <DisplayError msg={errorMsg} setShowError={setShowError} />}

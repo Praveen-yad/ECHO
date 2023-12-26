@@ -20,28 +20,28 @@ const SubSidebar = ({ setShow, show }) => {
         <div  className={`${Dark && 'dark'}`}>
             <div className={`w-[5.5rem] h-full flex flex-col items-center justify-between py-7 dark:bg-[#111111] bg-[#F0F4FA] transition-colors`}>
                 <div className='w-[3.5rem] flex flex-col items-center space-y-7 '>
-                    <div className='w-[3rem] h-[3rem] bg-[#000000] dark:bg-opacity-10 dark:bg-[#ffffff] transition-colors bg-opacity-10 flex items-center justify-center p-2 rounded-xl'  onClick={() => navigate("")}>
+                    <div className='w-[3rem] h-[3rem] bg-[#000000] dark:bg-opacity-10 dark:bg-[#ffffff] transition-colors bg-opacity-10 flex items-center justify-center p-2 cursor-pointer rounded-xl'  onClick={() => navigate("")}>
                         <img alt="ERROR" src='https://res.cloudinary.com/de2rges3m/image/upload/v1693475079/Chat%20App/Budgie_tt8nv8.png' className='w-[1.7rem] h-[1.7rem] object-cover' />
                     </div>
-                    <div className={`${(show === "Chats" || show === "") && 'bg-theme text-white transition-colors'} p-2 dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Chats")}>
+                    <div className={`${(show === "Chats" || show === "") && 'bg-theme text-white transition-colors'} p-2 cursor-pointer dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Chats")}>
                         <BiMessageSquareDetail className='' size={20} />
                     </div>
 
-                    <div className={`${show === "People" && 'bg-theme text-white transition-colors'} p-2 dark:text-neutral-200 rounded-lg`} onClick={() => setShow("People")}>
+                    <div className={`${show === "People" && 'bg-theme text-white transition-colors'} p-2 cursor-pointer dark:text-neutral-200 rounded-lg`} onClick={() => setShow("People")}>
                         <MdOutlineGroupAdd className='' size={20} />
                     </div>
                     
-                    <div className={`${show === "Group" && 'bg-theme text-white transition-colors'} p-2 dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Group")}>
+                    <div className={`${show === "Group" && 'bg-theme text-white transition-colors'} p-2 cursor-pointer dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Group")}>
                         <MdOutlineGroups className='' size={20} />
                     </div>
 
-                    <div className={`${show === "Calls" && 'bg-theme text-white transition-colors'} p-2 dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Calls")}>
+                    <div className={`${show === "Calls" && 'bg-theme text-white transition-colors'} p-2 cursor-pointer dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Calls")}>
                         <IoCallOutline className='' size={20} />
                     </div>
 
                     <div className='w-full h-[1px] bg-neutral-500'></div>
 
-                    <div className={`${show === "Setting" && 'bg-theme text-white transition-colors'} p-2 dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Setting")}>
+                    <div className={`${show === "Setting" && 'bg-theme text-white transition-colors'} p-2 cursor-pointer dark:text-neutral-200 rounded-lg`} onClick={() => setShow("Setting")}>
                         <AiOutlineSetting className='' size={20} />
                     </div>
                 </div>

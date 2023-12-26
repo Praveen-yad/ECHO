@@ -19,6 +19,10 @@ import RightSlider from "./SidebarReplacements/RightSlider";
 import { DotPulse } from '@uiball/loaders'
 import ReactPlayer from 'react-player'
 import Peer from 'simple-peer'
+import sendSound from '../../sendSound.mp3'
+import callSound from '../../VideoCall.mp3'
+import {MdCallEnd} from 'react-icons/md'
+import {IoIosCall} from 'react-icons/io'
 
 let socket, selectedChatCompare;
 
@@ -50,7 +54,9 @@ const MainContainer = () => {
     const [showVideo, setShowVideo] = useState()
     const [showAudio, setShowAudio] = useState()
     const Dark = useSelector(state => state.darkMode)
-
+    const [audio] = useState(new Audio(callSound))
+    const [cantCall, setCantCall] = useState(false)
+    
     const myVideo = useRef()
     const UserVideo = useRef()
     const connectionRef = useRef()
@@ -124,7 +130,7 @@ const MainContainer = () => {
             if (newMessage === "") {
                 return;
             }
-            
+            new Audio(sendSound).play()            
             setIsSending(true);
             await axios
             .post(`${BASE_URL}/api/message`,
@@ -135,7 +141,6 @@ const MainContainer = () => {
                 config,
                 )
                 .then((res) => {
-                    // dispatch(setRecall())
                     socket.emit("stop typing", chatId)
                     setIsSending(false);
                     setData([res.data.response, ...data]);
@@ -169,6 +174,7 @@ const MainContainer = () => {
             if (selectedChatCompare !== newMessageReceived.chat._id) {
                 Notify(newMessageReceived.chat._id);
             }else{
+                   
                 Proceed(newMessageReceived)
             }
         });
@@ -192,8 +198,7 @@ const MainContainer = () => {
         return date;
     };
 
-    const typingHandler = (e) => {
-        setNewMessage(e.target.value)
+    const typingHandler = () => {
         setShowEmoji(false)
 
         if(!socketConnected) return
@@ -208,16 +213,9 @@ const MainContainer = () => {
             setTyping(true)
         }
 
-        let lastTypingTime = new Date().getTime();
-        let timerLength = 2000;
         setTimeout(() => {
-            let timeNow = new Date().getTime();
-            let timeDiff = timeNow - lastTypingTime;
-
-            if(timeDiff >= timerLength && typing){
-                socket.emit("stop typing", chatId);
-                setTyping(false)
-            }
+            socket.emit("stop typing", chatId);
+            setTyping(false)
         }, 2000) 
     }
 
@@ -271,18 +269,18 @@ const MainContainer = () => {
         });
         }
     
-    const handelUserCall = async({from, signal}) => {
+    const handelUserCall = async({from, signal, videoCall}) => {
+        audio.currentTime = 0
+        audio.play()
+        audio.loop = true
         let ref = JSON.parse(from)
         setCallFrom(ref)
         setCallDecline(false)
         setCall({ isReceivingCall: true, from: from, signal:signal });
-        // await navigator.mediaDevices.getUserMedia({ video: true, audio: true }).then((currentStream) => {
-        //     setMyStream(currentStream);
-        //     myVideo.current.srcObject = currentStream
-        // })
     }
     
     const answerCall = async() => {
+        audio.pause()
         setCallAccepted(true);
         setShowCalling(false)
         await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -299,7 +297,7 @@ const MainContainer = () => {
                 UserVideo.current.srcObject = currentStream;
                 setCall({isReceivingCall:false})
             });
-            
+
             peer.signal(call.signal);
             connectionRef.current = peer;
         })
@@ -311,7 +309,7 @@ const MainContainer = () => {
         setCall({isReceivingCall:false})
         setCallAccepted(false)
         socket.emit("hungUp", {to: chatId})
-        connectionRef.current.destroy();
+        // connectionRef.current.destroy();
     }; 
 
     const handelDecline = () => {
@@ -365,7 +363,7 @@ const MainContainer = () => {
                                     <div className="transition-colors dark:hover:bg-neutral-800 hover:bg-neutral-200 px-3 py-2 rounded-md">
                                         <IoCallOutline />
                                     </div>
-                                    <div className="transition-colors dark:hover:bg-neutral-800 hover:bg-neutral-200 px-3 py-2 rounded-md" onClick={HandelCall}>
+                                    <div className="transition-colors dark:hover:bg-neutral-800 hover:bg-neutral-200 px-3 py-2 rounded-md" onClick={!data[0]?.chat.isGroupChat ? HandelCall : () => setCantCall(true)}>
                                         <BsCameraVideo />
                                     </div>
                                     <div className="transition-colors dark:hover:bg-neutral-800 hover:bg-neutral-200 px-3 py-2 rounded-md">
@@ -378,10 +376,17 @@ const MainContainer = () => {
                             </div>
                         </div>
 
+                        {cantCall && 
+                            <div className="absolute w-[22rem] h-[8rem] bg-neutral-200 dark:bg-neutral-800 bottom-[40%] z-30 left-[35%] rounded-md flex flex-col items-center justify-center transition-colors">
+                                    <div className="font-medium dark:text-neutral-200 text-neutral-800 transition-colors">Group Calling is restricted as of now.</div>
+                                    <div className="bg-red-500 text-white cursor-pointer px-3 py-1 rounded-md mt-3" onClick={() => setCantCall(false)}>Close</div>
+                            </div>
+                        }
+
                         {showCalling &&
                         <div>
                             {callDecline ?
-                            <div className="absolute w-[30rem] h-[15.58rem] rounded-r-2xl shadow-[0px_0px_10px_2px] shadow-neutral-300 top-5 right-5 dark:bg-neutral-900 bg-white dark:shadow-black transition-colors z-20 space-y-3 flex flex-col py-6 justify-around">
+                            <div className="absolute w-[30rem] h-[15.58rem] rounded-r-2xl shadow-[0px_0px_10px_2px] shadow-neutral-300 top-5 right-5 dark:bg-neutral-900 bg-white dark:shadow-black transition-colors z-20 flex flex-col py-6 justify-around">
                                  <div className="w-[30rem] flex justify-center items-center h-fit  space-x-[3rem]">
                                     {data[0]?.chat.users.map(item => ((item._id === id) && 
                                         <div key={item._id}>
@@ -400,11 +405,11 @@ const MainContainer = () => {
                                         </div>
                                     ))}
                                 </div>
-                                <div className="text-center dark:text-neutral-300 transition-colors">Could Not Stablish Connection</div>
+                                
                                 <div className="flex justify-center text-[16px]">
-                                    <div className="border border-red-600 text-red-600 w-fit px-4 py-1 rounded-lg cursor-pointer">Call Declined</div>
+                                    <div className="bg-red-600 px-5 py-1 rounded-md text-white">Call Declined</div>
                                 </div>
-                                <div className="absolute right-5 top-0 text-xl dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors hover:bg-neutral-200 h-7 w-7 flex items-center justify-center rounded-full" onClick={() => {
+                                <div className="absolute right-3 top-2 text-xl dark:text-neutral-300 dark:hover:bg-neutral-800 transition-colors hover:bg-neutral-200 h-7 w-7 flex items-center justify-center rounded-full" onClick={() => {
                                         setMyStream(myStream.getTracks().forEach(function(track) {
                                             track.stop();
                                         }))
@@ -432,13 +437,14 @@ const MainContainer = () => {
                                 </div>
                                 <div className="text-center text-xl font-[400] transition-colors dark:text-neutral-200 ">Connecting...</div>
                                 <div className="flex justify-center text-[16px] pt-1">
-                                    <div className="border border-red-600 text-red-600 w-fit px-4 py-1 rounded-lg cursor-pointer" onClick={() => {
+                                    <div className="bg-red-600 text-white w-fit px-6 py-2 rounded-lg cursor-pointer" onClick={() => {
                                         setShowCalling(false)
+                                        setCallDecline(false)
                                         setMyStream(myStream.getTracks().forEach(function(track) {
                                             track.stop();
                                         }))
                                         socket.emit("DeclineCall", {to: chatId})
-                                    }}>Hung Up</div>
+                                    }}>{<MdCallEnd/>}</div>
                                 </div>
                             </div>
                             }
@@ -465,9 +471,9 @@ const MainContainer = () => {
                                     </div>
                                     <div className="text-center text-xl font-[400] capitalize dark:text-neutral-300 transition-colors">Incoming Call- {callFrom.name}</div>
                                     <div className="flex justify-center text-[16px]">
-                                        <div className="border border-red-600 text-red-600 w-fit px-4 py-1 rounded-lg cursor-pointer">Call Missed</div>
+                                        <div className="bg-red-600 text-neutral-100 w-fit px-5 py-1 rounded-md cursor-pointer">Call Missed</div>
                                     </div>
-                                    <div className="absolute right-5 top-0 text-xl hover:bg-neutral-200 h-7 w-7 flex items-center justify-center rounded-full" onClick={() => {
+                                    <div className="absolute right-5 top-0 text-xl hover:bg-neutral-200 dark:hover:bg-neutral-800 dark:text-neutral-100 h-7 w-7 flex items-center justify-center rounded-full" onClick={() => {
                                         setCall({isReceivingCall: false})
                                         setCallDecline(false)
                                     }}><RxCross2/></div>
@@ -481,12 +487,13 @@ const MainContainer = () => {
                                     </div>
                                     <div className="text-center text-xl font-[400] capitalize dark:text-neutral-200 transition-colors">Incoming Call- {callFrom.name}</div>
                                     <div className="flex justify-center text-[16px]">
-                                        <div className="border border-red-600 text-red-600 w-fit px-4 py-1 rounded-lg cursor-pointer" onClick={() => {
+                                        <div className=" bg-red-600 text-white w-fit px-6 py-2 rounded-lg cursor-pointer" onClick={() => {
+                                            audio.pause()
                                             setCall({isReceivingCall: false})
                                             setCallDecline(false)
                                             socket.emit("DeclineCall", {to: chatId})
-                                        }}>Hung Up</div>
-                                        <div className="border border-green-500 text-green-500 ml-6 w-fit px-4 py-1 rounded-lg cursor-pointer" onClick={answerCall}>Accept</div>
+                                        }}>{<MdCallEnd/>}</div>
+                                        <div className=" bg-green-500 text-white ml-6 w-fit px-6 py-2 rounded-lg cursor-pointer" onClick={answerCall}>{<IoIosCall/>}</div>
                                     </div>
                                 </div>
                                 }
@@ -520,12 +527,12 @@ const MainContainer = () => {
                                                 <div>
                                                     {item.chat.isGroupChat ? (
                                                         <GroupMsg
-                                                            data={data}
-                                                            index={index}
+                                                        data={data}
+                                                        index={index}
                                                             sender={item.sender}
                                                             timeStamp={item.createdAt}
                                                             message={item.content}
-                                                        />
+                                                            />
                                                     ) : (
                                                         <MsgReceived
                                                             timeStamp={item.createdAt}
@@ -551,7 +558,10 @@ const MainContainer = () => {
                                             value={newMessage}
                                             className="outline-none bg-transparent w-full  placeholder:text-opacity-70"
                                             placeholder="Write a Message..."
-                                            onChange={(e) => typingHandler(e)}
+                                            onChange={(e) => {
+                                                setNewMessage(e.target.value)
+                                                typingHandler()
+                                            }}
                                             readOnly={isSending ? true : false}
                                         />
                                         <div>
@@ -573,14 +583,16 @@ const MainContainer = () => {
                         name={data[0]?.chat.isGroupChat ? data[0].chat.chatName : reciver.name} 
                         data={data[0]?.chat.isGroupChat ? data[0].chat.users : ''}
                         isGroupChat = {data[0]?.chat.isGroupChat ? true : false}
+                        chatId={chatId}
                     />
                 </div>
 
                 {callAccepted && 
                 <div className="absolute w-full h-full backdrop-blur-md bg-opacity-50 z-50 flex items-center">
-                    <div className="w-fit rounded-lg overflow-hidden ml-3 -scale-x-100">
-                        <video ref={UserVideo} className='w-[55rem]' autoPlay />
-                    </div>
+                        <div className="w-fit rounded-lg overflow-hidden ml-3 -scale-x-100">
+                            <video ref={UserVideo} className='w-[55rem]' autoPlay />
+                        </div>
+                    
                     <div className="flex-1 h-full flex flex-col justify-between">
                         <div className="flex flex-col pt-7 px-5 text-white space-y-4">
                             <div className={`w-full flex justify-center bg-opacity-70 ${!showVideo ? 'bg-theme' : 'bg-red-500' } py-2 rounded-md`} onClick={stopVideo}>
